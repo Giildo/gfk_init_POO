@@ -5,6 +5,7 @@ Initiation :
 * POO en PHP
 * Design pattern
 * Routeur
+* Gestion d'une bdd en POO
 
 Proposition d'une architecture d'application.
 
