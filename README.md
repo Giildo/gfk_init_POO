@@ -6,6 +6,8 @@ Initiation :
 * Design pattern
 * Routeur
 
+Proposition d'une architecture d'application.
+
 # Source
 
 [Grafikart](https://www.youtube.com/watch?v=r_NiFqLvfsc&list=PLjwdMgw5TTLVDKy8ikf5Df5fnMqY-ec16)
