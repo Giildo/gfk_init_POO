@@ -1,5 +1,8 @@
 <?php
 
+use app\Database;
+use app\Config;
+
 namespace app;
 
 /**
@@ -8,20 +11,33 @@ namespace app;
  */
 class App
 {
-	const DB_NAME = 'blog';
-	const DB_USER = 'root';
-	const DB_PASS = 'jOn79613226';
-	const DB_HOST = 'localhost';
+	private $database;
+	private $config;
+	private $title = 'Mon super blog';
 
-	private static $database = null;
-	private static $title = 'Mon super blog';
+	private static $_instance = null;
 	
-	public static function getDb() {
-		if (self::$database === null) {
-			self::$database = new Database(self::DB_NAME, self::DB_USER, self::DB_PASS, self::DB_HOST);
+	/**
+	 * Instancie une nouvelle connection à la bdd
+	 * @param none
+	 * @return none
+	 */
+	protected function __construct() {
+		$this->config = Config::getInstance();
+		$this->database = new Database($this->config->get('db_name'), $this->config->get('db_user'), $this->config->get('db_pass'), $this->config->get('db_host'));
+	}
+
+	/**
+	 * Envoie une instance unique de l'App pour créer un singleton
+	 * @param none
+	 * @return object App Renvoie l'instance unique de App
+	 */
+	public static function getInstance() {
+		if (self::$_instance === null) {
+			self::$_instance = new App();
 		}
 
-		return self::$database;
+		return self::$_instance;
 	}
 
 	/**
@@ -29,7 +45,7 @@ class App
 	 * @param none
 	 * @return none
 	 */
-	public static function error404() {
+	public function error404() {
 		header("HTTP/1.0 404 Not Found");
 		header('Location: index.php?p=404');
 	}
@@ -39,8 +55,8 @@ class App
 	 * @param none
 	 * @return string $title
 	 */
-	public static function getTitle() {
-		return self::$title;
+	public function getTitle() {
+		return $this->$title;
 	}
 
 	/**
@@ -48,7 +64,7 @@ class App
 	 * @param string $title Nouveau titre
 	 * @return none
 	 */
-	public static function setTitle(string $title) {
-		self::$title = $title;
+	public function setTitle(string $title) {
+		$this->$title = $title;
 	}
 }
