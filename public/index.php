@@ -9,5 +9,6 @@ use app\App;
 
 Autoloader::register();
 
-$singleton = App::getInstance();
-var_dump($singleton->getDb());
+$app = App::getInstance();
+$posts = $app->getTable('Posts');
+var_dump($posts->all());

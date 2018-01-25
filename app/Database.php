@@ -54,10 +54,14 @@ class Database
 	 * @param string $className classe de retour pour la récupération des données
 	 * @return object $className objet retourné selon celui passé en paramètre
 	 */
-	public function query(string $statement, string $className, bool $oneResult = false) {
+	public function query(string $statement, string $className = null, bool $oneResult = false) {
 		$results = $this->getPDO()->query($statement);
 
-		$results->setFetchMode(PDO::FETCH_CLASS, $className);
+		if ($className === null) {
+			$results->setFetchMode(PDO::FETCH_OBJ);
+		} else {
+			$results->setFetchMode(PDO::FETCH_CLASS, $className);
+		}
 
 		if ($oneResult) {
 			$datas = $results->fetch();
@@ -76,7 +80,7 @@ class Database
 	 * @param bool $oneResult (optional) indique si on souhaite récupérer un élément et on fait un fetch ou plusieurs et on fait un fetchAll
 	 * @return object $className objet retourné selon celui passé en paramètre
 	 */
-	public function prepare(string $statement, string $className, array $parameters, bool $oneResult = false) {
+	public function prepare(string $statement, array $parameters, string $className = null, bool $oneResult = false) {
 		$prep = $this->getPDO()->prepare($statement);
 		$prep->execute($parameters);
 
