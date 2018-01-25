@@ -3,7 +3,6 @@
 namespace app;
 
 /**
- * Class Autoloader
  * Classe permetant de charger directement les autres classes sans faire les includes
  * @package app
  */

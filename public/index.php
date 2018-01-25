@@ -13,15 +13,14 @@ if (isset($_GET['p'])) {
 	$p = 'home';
 }
 
-//Initialisation des objets
-$db = new Database('blog');
-
 ob_start();
 
 if ($p === 'home') {
 	require_once '../views/home.php';
-} elseif ($p === 'post') {
+} elseif ($p === 'post' && isset($_GET['id'])) {
 	require_once '../views/single.php';
+} elseif ($p === 'category' && isset($_GET['id'])) {
+	require_once('../views/category.php');
 } else {
 	require_once '../views/home.php';
 }

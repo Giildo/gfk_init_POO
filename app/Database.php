@@ -5,7 +5,6 @@ namespace app;
 use \PDO;
 
 /**
- * Class Database
  * Se connecte à la base de donnée grâce au système PDO 
  * @package app
  */
@@ -45,7 +44,7 @@ class Database
 			$this->db = $db;
 		}
 
-		return $this->db = $db;
+		return $this->db;
 	}
 
 	/**
@@ -55,9 +54,17 @@ class Database
 	 * @param string $className classe de retour pour la récupération des données
 	 * @return object $className objet retourné selon celui passé en paramètre
 	 */
-	public function query(string $statement, string $className) {
-		$results = $this->getPDO()->query($statement);	
-		$datas = $results->fetchAll(PDO::FETCH_CLASS, $className);
+	public function query(string $statement, string $className, bool $oneResult = false) {
+		$results = $this->getPDO()->query($statement);
+
+		$results->setFetchMode(PDO::FETCH_CLASS, $className);
+
+		if ($oneResult) {
+			$datas = $results->fetch();
+		} else {
+			$datas = $results->fetchAll();
+		}
+
 		return $datas;
 	}
 
@@ -69,16 +76,17 @@ class Database
 	 * @param bool $oneResult (optional) indique si on souhaite récupérer un élément et on fait un fetch ou plusieurs et on fait un fetchAll
 	 * @return object $className objet retourné selon celui passé en paramètre
 	 */
-	public function prepare(string $statement, string $className, string $parameters, bool $oneResult = false) {
-		$post = $this->getPDO()->prepare($statement);
-		$post->execute(array($parameters));
+	public function prepare(string $statement, string $className, array $parameters, bool $oneResult = false) {
+		$prep = $this->getPDO()->prepare($statement);
+		$prep->execute($parameters);
 
-		$post->setFetchMode(PDO::FETCH_CLASS, $className);
+		$prep->setFetchMode(PDO::FETCH_CLASS, $className);
 
+		
 		if ($oneResult) {
-			$datas = $post->fetch();
+			$datas = $prep->fetch();
 		} else {
-			$datas = $post->fetchAll();
+			$datas = $prep->fetchAll();
 		}
 		
 		return $datas;

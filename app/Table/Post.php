@@ -2,22 +2,16 @@
 
 namespace app\Table;
 
+use app\App;
+
 /**
- * Class Post
  * Implémente les articles récupérés depuis le base de données
  * @package app\Table
  */
-class Post
+class Post extends Table
 {
-
-	/**
-	 * Passe l'URL de l'article en ajoutant l'ID
-	 * @param none
-	 * @return string URL de l'article
-	 */
-	public function getUrl() {
-		return 'index.php?p=post&id=' . $this->id;
-	}
+	protected static $table = 'posts';
+	protected static $class = 'post';
 
 	/**
 	 * Coupe l'article à 100 caractères et le renvoie accompagné d'un "Voir la suite" qui permet d'afficher la page de l'article
@@ -31,13 +25,28 @@ class Post
 	}
 
 	/**
-	 * Méthode magique qui est appelée lorsqu'on fait appel à un attribut qui n'existe pas dans la classe. Nous permet de faire appel aux getteurs correspondant
-	 * @param string $key attribut inconnu
-	 * @return string méthode à appeler
+	 * Récupềre l'ensemble des derniers articles
+	 * @param none
+	 * @return object Database
 	 */
-	public function __get(string $key) {
-		$method = 'get' . ucfirst($key);
-		$this->$key = $this->$method();
-		return $this->$key;
+	public static function getLastPosts() {
+		return static::query("
+			SELECT posts.id, posts.title, posts.content, posts.date, posts.category_id, categories.name as category
+			FROM `posts`
+			LEFT JOIN categories ON category_id = categories.id");
+	}
+
+	/**
+	 * Récupère l'ensemble des articles en fonction de la category
+	 * @param int $categoryId id de la categorie où l'on souhaite récupéré les articles
+	 * @return object Database
+	 */
+	public static function getPostByCategory(string $categoryId) {
+		return static::query("
+			SELECT posts.id, posts.title, posts.content, posts.date, posts.category_id, categories.name as category
+			FROM `posts`
+			LEFT JOIN categories ON category_id = categories.id
+			WHERE category_id = ?",
+			array($categoryId));
 	}
 }

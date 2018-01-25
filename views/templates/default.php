@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="icon" href="../../favicon.ico">
 
-	<title><?= $title; ?></title>
+	<title><?= app\App::getTitle(); ?></title>
 
 	<!-- Bootstrap core CSS -->
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
@@ -17,11 +17,7 @@
 	</nav>
 
 	<div class="container">
-
-		<div class="starter-template">
-			<?= $content; ?>
-		</div>
-
+		<?= $content; ?>
 	</div>
 </body>
 </html>

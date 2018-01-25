@@ -1,15 +1,22 @@
 <?php
 use app\Table\Category;
 use app\Table\Post;
+use app\App;
 
 $categories = Category::all();
+
+$posts = Post::getPostByCategory($_GET['id']);
+if (empty($posts)) {
+	App::error404();
+}
+App::setTitle($posts[0]->category);
 ?>
 
 <h1>Accueil</h1>
 
 <div class="row">
 	<ul class="col-sm-8">
-		<?php foreach(Post::getLastPosts() as $post): ?>
+		<?php foreach($posts as $post): ?>
 
 			<h2><?= $post->title; ?></h2>
 
