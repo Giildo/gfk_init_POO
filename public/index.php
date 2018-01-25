@@ -10,4 +10,4 @@ use app\App;
 Autoloader::register();
 
 $singleton = App::getInstance();
-var_dump($singleton);
+var_dump($singleton->getDb());

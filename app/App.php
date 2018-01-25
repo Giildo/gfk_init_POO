@@ -11,7 +11,7 @@ namespace app;
  */
 class App
 {
-	private $database;
+	private $dbInstance;
 	private $config;
 	private $title = 'Mon super blog';
 
@@ -23,8 +23,7 @@ class App
 	 * @return none
 	 */
 	protected function __construct() {
-		$this->config = Config::getInstance();
-		$this->database = new Database($this->config->get('db_name'), $this->config->get('db_user'), $this->config->get('db_pass'), $this->config->get('db_host'));
+		$config = $this->config = Config::getInstance();
 	}
 
 	/**
@@ -38,6 +37,29 @@ class App
 		}
 
 		return self::$_instance;
+	}
+
+	/**
+	 * Factory pour les Modèles
+	 * @param string $model Nom du modèle qu'on va charger
+	 * @return object Retourne le modèle demandé
+	 */
+	public function getTable(string $model) {
+		$className = 'app\Table\\' . ucfirst($model);
+		return new $className();
+	}
+
+	/**
+	 * Factory pour la bdd
+	 * @param none
+	 * @return object Database Retourne un singleton de Database
+	 */
+	public function getDb() {
+		if ($this->dbInstance === null) {
+			$this->dbInstance = new Database($this->config->get('db_name'), $this->config->get('db_user'), $this->config->get('db_pass'), $this->config->get('db_host'));
+		}
+
+		return $this->dbInstance;
 	}
 
 	/**
