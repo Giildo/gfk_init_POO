@@ -1,13 +1,11 @@
 <?php
 
-use app\Database;
-use app\Config;
-
-namespace app;
+use Core\Database;
+use Core\Config;
 
 /**
- * Va stocker les informations nécessaires à plusieurs éléments de l'application afin de les réutiliser un peu partout
- * @package app
+ * Va stocker les informations nécessaires à plusieurs éléments de l'Application afin de les réutiliser un peu partout
+ * @package App
  */
 class App
 {
@@ -23,7 +21,7 @@ class App
 	 * @return none
 	 */
 	protected function __construct() {
-		$config = $this->config = Config::getInstance();
+		$config = $this->config = Config::getInstance(ROOT . '/config/config.php');
 	}
 
 	/**
@@ -40,12 +38,25 @@ class App
 	}
 
 	/**
+	 * Charge l'Autoloader afin de gérer le reste des Classes et lance une session
+	 * @param none
+	 * @return none
+	 */
+	public static function load() {
+		session_start();
+		require ROOT . '/app/Autoloader.php';
+		App\Autoloader::register();
+		require ROOT . '/core/Autoloader.php';
+		Core\Autoloader::register();
+	}
+
+	/**
 	 * Factory pour les Modèles
 	 * @param string $model Nom du modèle qu'on va charger
 	 * @return object Retourne le modèle demandé
 	 */
 	public function getTable(string $model) {
-		$className = 'app\Table\\' . ucfirst($model);
+		$className = 'App\Table\\' . ucfirst($model);
 		return new $className($this->getDb());
 	}
 
@@ -78,7 +89,7 @@ class App
 	 * @return string $title
 	 */
 	public function getTitle() {
-		return $this->$title;
+		return $this->title;
 	}
 
 	/**
@@ -87,6 +98,6 @@ class App
 	 * @return none
 	 */
 	public function setTitle(string $title) {
-		$this->$title = $title;
+		$this->title = $title;
 	}
 }

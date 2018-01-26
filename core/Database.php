@@ -1,6 +1,6 @@
 <?php
 
-namespace app;
+namespace Core;
 
 use \PDO;
 
@@ -39,7 +39,7 @@ class Database
 	 */
 	private function getPDO() {
 		if ($this->db === null) {
-			$db = new \PDO('mysql:dbname=blog;host=localhost;charset=utf8', 'root', 'jOn79613226');
+			$db = new PDO('mysql:dbname=blog;host=localhost;charset=utf8', 'root', 'jOn79613226');
 			$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			$this->db = $db;
 		}

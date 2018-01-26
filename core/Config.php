@@ -1,6 +1,6 @@
 <?php
 
-namespace app;
+namespace Core;
 
 /**
 * Configuration de l'application. Crée lors de l'initiation aux Singleton
@@ -13,24 +13,24 @@ class Config
 
 	/**
 	 * Constructeur qui lit le fichier config pour instancier la confid de l'application
-	 * @param none
+	 * @param string $files Chemin vers le fichier de config
 	 * @return none
 	 */
-	protected function __construct() {
-		$this->settings = require dirname(__DIR__) . '/config/config.php';
+	protected function __construct(string $files) {
+		$this->settings = require($files);
 	}
 
 	/**
 	 * Instancie l'objet une fois et le stocke dans lui-même pour permettre de n'avoir qu'une seule instance = singleton
-	 * @param none
+	 * @param string $files Chemin vers le fichier de config
 	 * @return object Config Renvoie l'instance unique de Config
 	 */
-	public static function getInstance() {
+	public static function getInstance(string $files) {
 		if (self::$_instance === null) {
-			self::$_instance = new Config();
+			self::$_instance = new Config($files);
 		}
 
-		return self::$_instance; 
+		return self::$_instance;
 	}
 
 	/**

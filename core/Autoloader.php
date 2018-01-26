@@ -1,13 +1,12 @@
 <?php
 
-namespace App;
+namespace Core;
 
 /**
  * Classe permetant de charger directement les autres classes sans faire les includes
  * @package app
  */
-class Autoloader 
-{
+class Autoloader{
 
     /**
      * Enregistre notre autoloader
