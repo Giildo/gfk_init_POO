@@ -7,13 +7,17 @@ namespace Core\Entity;
 */
 class Entity
 {
+	/** @var string $url URL récupéré pour afficher les articles en single ou par category */
 	protected $url;
+
+	/** @var string $modifyURL URL pour la modification des Posts */
+	protected $modifyURL;
+
+	/** @var string $entity Nom de l'Entity */
 	protected $entity;
 
 	/**
 	 * Initialise l'attribut entity
-	 * @param none
-	 * @return none
 	 */
 	public function __construct() {
 		$this->entity = strtolower(str_replace('Entity', '', end(explode('\\', get_class($this)))));
@@ -23,10 +27,17 @@ class Entity
 		} elseif ($this->entity === 'category') {
 			$this->url = 'index.php?p=post.category&id=' . $this->id;
 		}
+
+		if ($this->entity === 'post') {
+			$this->modifyURL = 'admin.php?p=post.modify&id=' . $this->id;
+		} elseif ($this->entity === 'category') {
+			$this->modifyURL = 'admin.php?p=category.modify&id=' . $this->id;
+		}
 	}
 
 	/**
 	 * Méthode magique pour récupérer tous les éléments avec des getters sans les écrire
+	 * 
 	 * @param string $key Nom de l'attribut qu'on veut récupérer
 	 * @return string $this->$key qui est le getter
 	 */
@@ -38,10 +49,20 @@ class Entity
 
 	/**
 	 * Récupère l'id de l'élement pour en faire un URL
-	 * @param none
+	 * 
 	 * @return string $url Retourne l'URL de l'entity
 	 */
 	public function getUrl() {
 		return $this->url;
+	}
+
+	/**
+	 * Getter pour l'URL de modification
+	 * 
+	 * @return string URL de modification
+	 **/
+	public function getModifyUrl()
+	{
+		return $this->modifyURL;
 	}
 }

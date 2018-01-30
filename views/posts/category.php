@@ -12,7 +12,7 @@ $posts = $app->getTable('PostTable');
 $postsByCategory = $posts->getPostsByCategory($_GET['id']);
 
 if (empty($postsByCategory)) {
-	App::error404();
+	$app->error404();
 }
 
 $app->setTitle($postsByCategory[0]->category);

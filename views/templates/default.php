@@ -14,6 +14,8 @@
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<a class="navbar-brand" href="index.php?p=home">Blog</a>
+		<a class="navbar-brand" href="admin.php">Admin Posts</a>
+		<a class="navbar-brand" href="admin.php?p=category.index">Admin Categories</a>
 	</nav>
 
 	<div class="container">
