@@ -13,9 +13,17 @@
 
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-		<a class="navbar-brand" href="index.php">Blog</a>
-		<a class="navbar-brand" href="index.php?p=admin.posts.index">Admin Posts</a>
-		<a class="navbar-brand" href="index.php?p=admin.categories.index">Admin Categories</a>
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="index.php">Mon super Blog</a>
+			</div>
+
+			<ul class="nav navbar-nav">
+				<li class="nav-link active"><a class="navbar-brand" href="index.php?p=posts.index">Accueil <span class="sr-only">(current)</span></a></li>
+				<li class="nav-link"><a class="navbar-brand" href="index.php?p=admin.posts.index">Admin Posts</a></li>
+				<li class="nav-link"><a class="navbar-brand" href="index.php?p=admin.categories.index">Admin Categories</a></li>
+			</ul>
+		</div>
 	</nav>
 
 	<div class="container">
