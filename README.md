@@ -3,7 +3,7 @@
 Cours d'initiation à la POO de Grafikart, pour apprendre à faire un blog en orienté objet.  
 Initiation :
 * POO en PHP
-* Design pattern : singleton, factory, injection de dépendances
+* Design pattern : singleton, factory, injection de dépendances, architecture MVC
 * Routeur
 * Gestion d'une bdd en POO
 

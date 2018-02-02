@@ -1,15 +1,4 @@
-<?php
-
-use \App\Table\PostTable;
-use \Core\HTML\BootstrapForm;
-
-$form = new BootstrapForm([]);
-
-$categories = App::getInstance()->getTable('categoryTable')->all();
-?>
-
 <h1>Administration</h1>
-
 
 <table class="table">
     <thead>
@@ -19,6 +8,7 @@ $categories = App::getInstance()->getTable('categoryTable')->all();
             <td>Actions</td>
         </tr>
     </thead>
+
     <tbody>
         <?php foreach ($categories as $category) : ?>
         <tr>
@@ -26,9 +16,9 @@ $categories = App::getInstance()->getTable('categoryTable')->all();
             <td><?= $category->name; ?></td>
             <td>
                 <a href="<?= $category->modifyURL; ?>" class="btn btn-primary">Modifier</a>
-                <form action="admin.php?p=category.delete" method="post" style="display:inline;">
-                    <?= $form->input('id', '', ['type' => 'hidden', 'data' => $category->id]); ?>
-                    <?= $form->submit('Supprimer', 'btn btn-danger'); ?>
+                <form action="index.php?p=admin.categories.delete" method="post" style="display:inline;">
+                    <?= $this->form->input('id', '', ['type' => 'hidden', 'data' => $category->id]); ?>
+                    <?= $this->form->submit('Supprimer', 'btn btn-danger'); ?>
                 </form>
             </td>
         </tr>
@@ -36,4 +26,4 @@ $categories = App::getInstance()->getTable('categoryTable')->all();
     </tbody>
 </table>
 
-<p><a href="admin.php?p=category.add" class="btn btn-primary">Ajouter un nouvel article</a></p>
+<p><a href="index.php?p=admin.categories.add" class="btn btn-primary">Ajouter une nouvelle catégorie</a></p>

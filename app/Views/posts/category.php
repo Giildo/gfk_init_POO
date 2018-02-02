@@ -1,23 +1,3 @@
-<?php
-
-use app\Table\CategoryTable;
-use app\Table\PostTable;
-
-$app = App::getInstance();
-
-$categories = $app->getTable('CategoryTable');
-$allCategories = $categories->all();
-
-$posts = $app->getTable('PostTable');
-$postsByCategory = $posts->getPostsByCategory($_GET['id']);
-
-if (empty($postsByCategory)) {
-	$app->error404();
-}
-
-$app->setTitle($postsByCategory[0]->category);
-?>
-
 <h1><?= $postsByCategory[0]->category; ?></h1>
 
 <div class="row">

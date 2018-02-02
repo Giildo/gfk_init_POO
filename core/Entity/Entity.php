@@ -23,15 +23,15 @@ class Entity
 		$this->entity = strtolower(str_replace('Entity', '', end(explode('\\', get_class($this)))));
 
 		if ($this->entity === 'post') {
-			$this->url = 'index.php?p=post.single&id=' . $this->id;
+			$this->url = 'index.php?p=posts.show&id=' . $this->id;
 		} elseif ($this->entity === 'category') {
-			$this->url = 'index.php?p=post.category&id=' . $this->id;
+			$this->url = 'index.php?p=posts.category&id=' . $this->id;
 		}
 
 		if ($this->entity === 'post') {
-			$this->modifyURL = 'admin.php?p=post.modify&id=' . $this->id;
+			$this->modifyURL = 'index.php?p=admin.posts.edit&id=' . $this->id;
 		} elseif ($this->entity === 'category') {
-			$this->modifyURL = 'admin.php?p=category.modify&id=' . $this->id;
+			$this->modifyURL = 'index.php?p=admin.categories.edit&id=' . $this->id;
 		}
 	}
 

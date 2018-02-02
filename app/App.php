@@ -56,7 +56,7 @@ class App
 	 * @return object Retourne le modèle demandé
 	 */
 	public function getTable(string $model) {
-		$className = 'App\Table\\' . ucfirst($model);
+		$className = 'App\Table\\' . ucfirst($model) . 'Table';
 		return new $className($this->getDb());
 	}
 
@@ -72,27 +72,6 @@ class App
 
 		return $this->dbInstance;
 	}
-
-	/**
-	 * Permet de renvoyer vers une page 404
-	 * @param none
-	 * @return none
-	 */
-	public function error404() {
-		header("HTTP/1.0 404 Not Found");
-		header('Location: index.php?p=home');
-	}
-
-	/**
-	 * Interdit l'accès à la page quand le User n'est pas Auth
-	 * @param none
-	 * @return none
-	 */
-	public function forbidden() {
-		header('HTTP/1.0 403 forbidden');
-		die('Accès interdit');
-	}
-
 
 	/* Setters Getters */
 

@@ -1,15 +1,4 @@
-<?php
-
-use \App\Table\PostTable;
-use \Core\HTML\BootstrapForm;
-
-$form = new BootstrapForm([]);
-
-$posts = App::getInstance()->getTable('PostTable')->all();
-?>
-
 <h1>Administration</h1>
-
 
 <table class="table">
     <thead>
@@ -19,6 +8,7 @@ $posts = App::getInstance()->getTable('PostTable')->all();
             <td>Actions</td>
         </tr>
     </thead>
+
     <tbody>
         <?php foreach ($posts as $post) : ?>
         <tr>
@@ -26,9 +16,9 @@ $posts = App::getInstance()->getTable('PostTable')->all();
             <td><?= $post->title; ?></td>
             <td>
                 <a href="<?= $post->modifyURL; ?>" class="btn btn-primary">Modifier</a>
-                <form action="admin.php?p=post.delete" method="post" style="display:inline;">
-                    <?= $form->input('id', '', ['type' => 'hidden', 'data' => $post->id]); ?>
-                    <?= $form->submit('Supprimer', 'btn btn-danger'); ?>
+                <form action="index.php?p=admin.posts.delete" method="post" style="display:inline;">
+                    <?= $this->form->input('id', '', ['type' => 'hidden', 'data' => $post->id]); ?>
+                    <?= $this->form->submit('Supprimer', 'btn btn-danger'); ?>
                 </form>
             </td>
         </tr>
@@ -36,7 +26,7 @@ $posts = App::getInstance()->getTable('PostTable')->all();
     </tbody>
 </table>
 
-<p><a href="admin.php?p=post.add" class="btn btn-primary">Ajouter un nouvel article</a></p>
+<p><a href="index.php?p=admin.posts.add" class="btn btn-primary">Ajouter un nouvel article</a></p>
 
 <div class="row">
 </div>

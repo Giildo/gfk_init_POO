@@ -5,28 +5,21 @@ require_once '../app/App.php';
 
 App::load();
 
-$app = App::getInstance();
-
 if (isset($_GET['p'])) {
     $p = $_GET['p'];
 } else {
-    $p = 'home';
+    $p = 'posts.index';
 }
 
-ob_start();
+$p = explode('.', $p);
 
-if ($p === 'home') {
-    require_once ROOT . '/views/posts/home.php';
-} elseif ($p === 'post.single') {
-    require_once ROOT . '/views/posts/single.php';
-} elseif ($p === 'post.category') {
-    require_once ROOT . '/views/posts/category.php';
-} elseif ($p === 'login') {
-    require_once ROOT . '/views/users/login.php';
+if ($p[0] === 'admin') {
+    $controllerName = '\App\Controller\\' . ucfirst($p[0]) . '\\' . ucfirst($p[1]) . 'Controller';
+    $action = $p[2];
 } else {
-    require_once ROOT . '/views/posts/home.php';
+    $controllerName = '\App\Controller\\' . ucfirst($p[0]) . 'Controller';
+    $action = $p[1];
 }
 
-$content = ob_get_clean();
-
-require_once ROOT . '/views/templates/default.php';
+$controller = new $controllerName();
+$controller->$action();
