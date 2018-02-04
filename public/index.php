@@ -1,7 +1,8 @@
 <?php
 define('ROOT', dirname(__DIR__));
 
-require_once '../app/App.php';
+require_once ROOT . '/app/App.php';
+require_once ROOT . '/vendor/autoload.php';
 
 App::load();
 

@@ -1,0 +1,17 @@
+{
+    "name": "jojotique/gfk_init_poo",
+    "description": "Cours d'initiation à la POO en PHP",
+    "authors": [
+        {
+            "name": "Giildo",
+            "email": "giildo.jm@gmail.com"
+        }
+    ],
+    "autoload": {
+      "psr-4": {
+        "App\\": "app/",
+        "Core\\": "core/"
+      }
+    },
+    "require": {}
+}
